@@ -13,6 +13,10 @@
       socket.on('test', (data) => {
         console.log(`[Socket.io - Client] Received test socket from server! ${data}`);
       });
+
+      socket.on('getPlayers', (data) => {
+        console.log('[Socket.io - Client] Received players:', data);
+      });
     </script>
   </head>
   <body>
