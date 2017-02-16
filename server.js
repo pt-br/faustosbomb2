@@ -13,6 +13,8 @@ const isDeveloping = process.env.NODE_ENV !== 'production';
 const port = isDeveloping ? 3000 : process.env.PORT;
 const app = new Express;
 
+app.use('/js', Express.static(__dirname + '/js'));
+console.warn(__dirname + '/js');
 if (isDeveloping) {
   const compiler = new Webpack(Config);
   const middleware = new WebpackMiddleware(compiler, {

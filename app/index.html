@@ -6,18 +6,8 @@
     <title>react-kickstart</title>
     <meta name="description" content="just another react + webpack boilerplate">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
-    <script>
-      var socket = io.connect('http://localhost:8080');
-
-      socket.on('getPlayers', (data) => {
-        console.log('[Socket.io - Client] Received players:', data);
-      });
-
-      socket.on('updatePlayers', (data) => {
-        console.log('[Socket.io - Client] Updated players:', data);
-      });
-    </script>
+    <script src="/js/socket.io-1.4.5.js"></script>
+    <script src="/js/front.js"></script>
   </head>
   <body>
     <div id="root"></div>

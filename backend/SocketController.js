@@ -28,19 +28,26 @@ class SocketController {
        */
       this.updatePlayers();
 
+      socket.on('updatePlayer', (data) => {
+        player.x = data.me.x;
+        player.y = data.me.y;
+        console.log('bunda');
+        this.updatePlayers();
+      });
+
       socket.on('disconnect', () => {
         gameController.disconnectPlayer(player.id);
-        this.updatePlayers();
+        this.updatePlayers(player.id);
         console.log(`Player ${player.id} disconnected.`);
       });
     });
   }
 
-  updatePlayers() {
+  updatePlayers(disconnectPlayer = "") {
     const { io, gameController } = this;
-    const players = gameController.getPlayers();
+    const allPlayers = gameController.getPlayers();
 
-    io.emit('updatePlayers', { players });
+    io.emit('updatePlayers', { allPlayers, disconnectPlayer });
   }
 }
 

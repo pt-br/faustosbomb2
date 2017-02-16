@@ -3,8 +3,8 @@
 class Player {
   constructor(id) {
     this.id = id;
-    this.x = 0;
-    this.y = 0;
+    this.x = 2;
+    this.y = 2;
     console.log(`[Player] Created new player with id: ${id}`);
   }
 
