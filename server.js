@@ -7,7 +7,7 @@ import Webpack from 'webpack';
 import WebpackMiddleware from 'webpack-dev-middleware';
 import WebpackHotMiddleware from 'webpack-hot-middleware';
 import Config from './webpack.config.js';
-import SocketIo from 'socket.io';
+import SocketController from './backend/SocketController';
 
 const isDeveloping = process.env.NODE_ENV !== 'production';
 const port = isDeveloping ? 3000 : process.env.PORT;
@@ -42,12 +42,9 @@ if (isDeveloping) {
 }
 
 const server = new Http.Server(app);
-const io = new SocketIo(8080);
-
 server.listen(port, () => {
-  console.log(`Running server on port: ${port}`);
+  console.log(`[Server] Running server on port: ${port}`);
 });
 
-io.on('connection', (socket) => {
-  console.log('[Server] User connected');
-});
+const socketController = new SocketController(8080);
+socketController.socketListener();
