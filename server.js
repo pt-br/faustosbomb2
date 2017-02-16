@@ -1,20 +1,20 @@
 /* eslint no-console: 0 */
 
-const path = require('path');
-const express = require('express');
-const webpack = require('webpack');
-const webpackMiddleware = require('webpack-dev-middleware');
-const webpackHotMiddleware = require('webpack-hot-middleware');
-const config = require('./webpack.config.js');
+import Path from 'path';
+import Express from 'express';
+import Webpack from 'webpack';
+import WebpackMiddleware from 'webpack-dev-middleware';
+import WebpackHotMiddleware from 'webpack-hot-middleware';
+import Config from './webpack.config.js';
 
 const isDeveloping = process.env.NODE_ENV !== 'production';
 const port = isDeveloping ? 3000 : process.env.PORT;
-const app = express();
+const app = new Express;
 
 if (isDeveloping) {
-  const compiler = webpack(config);
-  const middleware = webpackMiddleware(compiler, {
-    publicPath: config.output.publicPath,
+  const compiler = new Webpack(Config);
+  const middleware = new WebpackMiddleware(compiler, {
+    publicPath: Config.output.publicPath,
     contentBase: 'src',
     stats: {
       colors: true,
@@ -27,15 +27,15 @@ if (isDeveloping) {
   });
 
   app.use(middleware);
-  app.use(webpackHotMiddleware(compiler));
+  app.use(WebpackHotMiddleware(compiler));
   app.get('*', function response(req, res) {
-    res.write(middleware.fileSystem.readFileSync(path.join(__dirname, 'dist/index.html')));
+    res.write(middleware.fileSystem.readFileSync(Path.join(__dirname, 'dist/index.html')));
     res.end();
   });
 } else {
-  app.use(express.static(__dirname + '/dist'));
+  app.use(Express.static(__dirname + '/dist'));
   app.get('*', function response(req, res) {
-    res.sendFile(path.join(__dirname, 'dist/index.html'));
+    res.sendFile(Path.join(__dirname, 'dist/index.html'));
   });
 }
 
