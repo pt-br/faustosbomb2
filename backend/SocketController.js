@@ -14,7 +14,6 @@ class SocketController {
 
     io.on('connection', (socket) => {
       console.log('[Socket.io - Server] User connected');
-      socket.emit('test', 'This part of the string is comming from server!');
 
       const player = gameController.newPlayer();
       const allPlayers = gameController.getPlayers();
