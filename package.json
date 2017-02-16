@@ -12,7 +12,7 @@
     "webpack",
     "node"
   ],
-  "author": "Christian Alfoni",
+  "author": "@cdenicol, @guilhermecomum, @pt-br, @williammustaffa",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/pt-br/faustosbomb2/issues"
