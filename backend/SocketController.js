@@ -16,11 +16,32 @@ class SocketController {
       console.log('[Socket.io - Server] User connected');
       socket.emit('test', 'This part of the string is comming from server!');
 
-      const newPlayer = gameController.newPlayer();
+      const player = gameController.newPlayer();
       const allPlayers = gameController.getPlayers();
 
-      socket.emit('getPlayers', { me: newPlayer, allPlayers });
+      /**
+       * Send players to player that is connecting the server
+       */
+      socket.emit('getPlayers', { me: player, allPlayers });
+
+      /**
+       * Update players that are already connected
+       */
+      this.updatePlayers();
+
+      socket.on('disconnect', () => {
+        gameController.disconnectPlayer(player.id);
+        this.updatePlayers();
+        console.log(`Player ${player.id} disconnected.`);
+      });
     });
+  }
+
+  updatePlayers() {
+    const { io, gameController } = this;
+    const players = gameController.getPlayers();
+
+    io.emit('updatePlayers', { players });
   }
 }
 

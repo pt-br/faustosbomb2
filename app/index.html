@@ -17,6 +17,10 @@
       socket.on('getPlayers', (data) => {
         console.log('[Socket.io - Client] Received players:', data);
       });
+
+      socket.on('updatePlayers', (data) => {
+        console.log('[Socket.io - Client] Updated players:', data);
+      });
     </script>
   </head>
   <body>

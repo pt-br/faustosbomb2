@@ -42,6 +42,10 @@ class GameController {
   getPlayers() {
     return this.players;
   }
+
+  disconnectPlayer(id) {
+    this.players = this.players.filter(player => player.id !== id);
+  }
 }
 
 export default GameController;
