@@ -1,11 +1,13 @@
 /* eslint no-console: 0 */
 
 import Path from 'path';
+import Http from 'http';
 import Express from 'express';
 import Webpack from 'webpack';
 import WebpackMiddleware from 'webpack-dev-middleware';
 import WebpackHotMiddleware from 'webpack-hot-middleware';
 import Config from './webpack.config.js';
+import SocketIo from 'socket.io';
 
 const isDeveloping = process.env.NODE_ENV !== 'production';
 const port = isDeveloping ? 3000 : process.env.PORT;
@@ -39,9 +41,13 @@ if (isDeveloping) {
   });
 }
 
-app.listen(port, '0.0.0.0', function onStart(err) {
-  if (err) {
-    console.log(err);
-  }
-  console.info('==> 🌎 Listening on port %s. Open up http://0.0.0.0:%s/ in your browser.', port, port);
+const server = new Http.Server(app);
+const io = new SocketIo(8080);
+
+server.listen(port, () => {
+  console.log(`Running server on port: ${port}`);
+});
+
+io.on('connection', (socket) => {
+  console.log('[Server] User connected');
 });
